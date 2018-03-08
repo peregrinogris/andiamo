@@ -28,10 +28,13 @@ void settings() {
 }
 
 void setup() {
-  frameRate(180);
   noCursor();
   smooth(8);
   startup();
+  
+  // Call it at the end of setup, as startup() is blocking
+  // 60 fps is the default framerate
+  if (FRAMERATE != 60) frameRate(FRAMERATE);
 }
 
 void draw() {
@@ -47,11 +50,8 @@ void draw() {
     currStroke.update(t);
     currStroke.draw(g);
   }
-  cleanup();
-  
-//  if (frameCount % 600 == 0) {
-//    println("fps: " + frameRate);  
-//  }
+  // Call cleanup once every few frames, off the main thread
+  if (frameCount % 600 == 0) thread("cleanup");
 }
 
 void startup() {
@@ -102,7 +102,7 @@ void cleanup() {
 void loadDrawing() {
   File file = new File(dataPath(DRAW_FILENAME));
   if (file.exists()) {  
-    XML xml = loadXML("drawing.xml");
+    XML xml = loadXML(DRAW_FILENAME);
     if (xml != null) {
       for (int i = 0; i < layers.length; i++) {
         XML layer = xml.getChild("layer" + i);

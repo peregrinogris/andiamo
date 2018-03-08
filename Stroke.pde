@@ -160,6 +160,7 @@ class Stroke {
     looping = parseBoolean(xml.getChild("looping").getContent());
     fadeOutFact = parseFloat(xml.getChild("fadeOutFact").getContent());
     alphaScale = parseFloat(xml.getChild("alphaScale").getContent());
+    fadeOutFact0 = fadeOutFact;
             
     quads = new ArrayList<StrokeQuad>();  
     XML[] children = xml.getChildren("quad");
@@ -291,4 +292,3 @@ class Stroke {
     return res;  
   }
 }
-

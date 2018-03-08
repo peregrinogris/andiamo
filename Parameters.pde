@@ -2,6 +2,7 @@ boolean FULL_SCREEN = true;
 int RES_WIDTH = 1280;
 int RES_HEIGHT = 800;
 int DISPLAY_SCREEN = 2;
+int FRAMERATE = 60;
 //int DISPLAY_SCREEN = SPAN;
 
 float RIBBON_WIDTH = 0.8; // Average ribbon width
