@@ -11,6 +11,7 @@ ArrayList<Stroke>[] layers;
 int currLayer;
 ArrayList<PImage> textures;
 int currTexture;
+int currDrawFile;
 Stroke currStroke;
 Stroke lastStroke;
 boolean looping;
@@ -77,29 +78,39 @@ void startup() {
   currTexture = 0;
   textureMode(NORMAL);
 
+  currLayer = 0;
   layers = new ArrayList[4];
   for (int i = 0; i < 4; i++) {
     layers[i] = new ArrayList<Stroke>();
   }
+
+  currDrawFile = 0;
   loadDrawing();
-  currLayer = 0;
+
   lastStroke = null;
   currStroke = new Stroke(0, dissapearing, fixed, currTexture, lastStroke);
   println("Selected stroke layer: " + 1);
 }
 
-void cleanup() {
+// force enables a total cleanup of the screen
+void cleanup(boolean force) {
   for (int i = 0; i < layers.length; i++) {
     for (int j = layers[i].size() - 1; j >= 0; j--) {
       Stroke stroke = (Stroke)layers[i].get(j);
-      if (!stroke.isVisible() && !stroke.isLooping()) {
+      if (force || (!stroke.isVisible() && !stroke.isLooping())) {
         layers[i].remove(j);
       }
     }
   }
 }
 
+// default version of cleanup is to just remove old strokes
+void cleanup() {
+  cleanup(false);
+}
+
 void loadDrawing() {
+  DRAW_FILENAME = DRAW_FILENAMES[currDrawFile];
   File file = new File(dataPath(DRAW_FILENAME));
   if (file.exists()) {
     XML xml = loadXML(DRAW_FILENAME);
@@ -115,6 +126,7 @@ void loadDrawing() {
       println("Loaded drawing from " + DRAW_FILENAME);
     }
   }
+  currDrawFile = (currDrawFile + 1) % DRAW_FILENAMES.length;
 }
 
 void saveDrawing() {

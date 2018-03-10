@@ -23,7 +23,10 @@ float MAX_GROUP_TIME = 5;     // Maximum between two consecutive strokes to be c
 int LOOP_MULTIPLIER = 1;      // How many times slower the loop is with respect to the original stroke
 float DELETE_FACTOR = 0.9;
 
-String DRAW_FILENAME = "drawing.xml";
+String[] DRAW_FILENAMES = {
+  "drawing.xml",
+};
+String DRAW_FILENAME;
 
 boolean USE_TEXTURES = true;
 
