@@ -29,4 +29,4 @@ Guía rápida de uso:
 * con la tecla C borrás todas las líneas de la capa activa.
 * con las teclas Q, W, E, R, T, Y, elegís la textura de la linea. Fijate en el tab Parameters los nombres de los archivos de imágenes que estan siendo utilizados en estos momentos como texturas. Basta con cambiarlos para usar otras.
 * Presionando la tecla S, el dibujo es guardado en data/drawing.xml. No lo guarda como imágen, sino como xml con toda la info de los trazos Eso sí, las lineas que desaparecieron sin looping no son guardadas por que el programa las va borrando de la memoria.
-* Una vez que hay un dibujo guardado, lo carga automáticamente cuando inicias el programa de nuevo. Si no queres cargarlo, simplemente borra el archivo drawing.xml que está en data. 
+* Una vez que hay un dibujo guardado, lo carga automáticamente cuando inicias el programa de nuevo. Si no queres cargarlo, simplemente borra el archivo drawing.xml que está en data.

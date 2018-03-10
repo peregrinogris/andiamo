@@ -24,7 +24,7 @@ final int[][] BinomialCoefTable = {
 };
 
 // The element of this(i, j) of this table contains(i/10)^(3-j).
-final float[][] TVectorTable = {  
+final float[][] TVectorTable = {
 //   t^3,  t^2, t^1, t^0
   {    0,    0,   0,   1}, // t = 0.0
   {0.001, 0.01, 0.1,   1}, // t = 0.1
@@ -41,7 +41,7 @@ final float[][] TVectorTable = {
 
 // The element of this(i, j) of this table contains(3-j)*(i/10)^(2-j) if
 // j < 3, 0 otherwise.
-final float[][] DTVectorTable = { 
+final float[][] DTVectorTable = {
 // 3t^2,  2t^1, t^0
   {   0,     0,   1, 0}, // t = 0.0
   {0.03,   0.2,   1, 0}, // t = 0.1
@@ -71,8 +71,8 @@ abstract class Curve3D {
 
 abstract class Spline extends Curve3D {
   // The factorial of n.
-  int factorial(int n) { 
-    return n <= 0 ? 1 : n * factorial(n - 1); 
+  int factorial(int n) {
+    return n <= 0 ? 1 : n * factorial(n - 1);
   }
   // Gives n!/(i!(n-i)!).
   int binomialCoef(int i, int n) {
@@ -85,38 +85,38 @@ abstract class Spline extends Curve3D {
   }
   // The derivative of the Berstein polinomial.
   float dbersteinPol(int i, int n, float u) {
-    float s1, s2; 
-    if (i == 0) s1 = 0; 
+    float s1, s2;
+    if (i == 0) s1 = 0;
     else s1 = i * pow(u, i-1) * pow(1 - u, n - i);
-    if (n == i) s2 = 0; 
+    if (n == i) s2 = 0;
     else s2 = -(n - i) * pow(u, i) * pow(1 - u, n - i - 1);
     return binomialCoef(i, n) *(s1 + s2);
   }
 }
 
 class BSpline extends Spline {
-  BSpline() { 
-    initParameters(true); 
+  BSpline() {
+    initParameters(true);
   }
-  BSpline(boolean t) { 
-    initParameters(t); 
+  BSpline(boolean t) {
+    initParameters(t);
   }
 
   // Sets lookup table use.
-  void initParameters(boolean t) { 
+  void initParameters(boolean t) {
     bsplineCPoints = new float[4][3];
     TVector = new float[4];
-    DTVector = new float[4]; 
+    DTVector = new float[4];
     M3 = new float[4][3];
     pt = new float[3];
-    tg = new float[3];        
+    tg = new float[3];
     lookup = t;
   }
   // Sets n-th control point.
   void setCPoint(int n, PVector P) {
     bsplineCPoints[n][0] = P.x;
     bsplineCPoints[n][1] = P.y;
-    bsplineCPoints[n][2] = P.z;        
+    bsplineCPoints[n][2] = P.z;
     updateMatrix3();
   }
 
@@ -145,7 +145,7 @@ class BSpline extends Spline {
 
   // Updates the temporal matrix used in order 3 calculations.
   void updateMatrix3() {
-    float s; 
+    float s;
     int i, j, k;
     for(i = 0; i < 4; i++) {
       for(j = 0; j < 3; j++) {
@@ -154,41 +154,41 @@ class BSpline extends Spline {
         M3[i][j] = s;
       }
     }
-  }    
-
-  void feval(float t, PVector p) { 
-    evalPoint(t); 
-    p.set(pt); 
-  }
-  void deval(float t, PVector d) { 
-    evalTangent(t); 
-    d.set(tg); 
   }
 
-  float fevalX(float t) { 
-    evalPoint(t); 
-    return pt[0]; 
+  void feval(float t, PVector p) {
+    evalPoint(t);
+    p.set(pt);
   }
-  float fevalY(float t) { 
-    evalPoint(t); 
-    return pt[1]; 
-  }
-  float fevalZ(float t) { 
-    evalPoint(t); 
-    return pt[2]; 
+  void deval(float t, PVector d) {
+    evalTangent(t);
+    d.set(tg);
   }
 
-  float devalX(float t) { 
-    evalTangent(t); 
-    return tg[0]; 
+  float fevalX(float t) {
+    evalPoint(t);
+    return pt[0];
   }
-  float devalY(float t) { 
-    evalTangent(t); 
-    return tg[1]; 
+  float fevalY(float t) {
+    evalPoint(t);
+    return pt[1];
   }
-  float devalZ(float t) { 
-    evalTangent(t); 
-    return tg[2]; 
+  float fevalZ(float t) {
+    evalPoint(t);
+    return pt[2];
+  }
+
+  float devalX(float t) {
+    evalTangent(t);
+    return tg[0];
+  }
+  float devalY(float t) {
+    evalTangent(t);
+    return tg[1];
+  }
+  float devalZ(float t) {
+    evalTangent(t);
+    return tg[2];
   }
 
   // Point evaluation.
@@ -198,7 +198,7 @@ class BSpline extends Spline {
     } else {
       bsplinePoint(t);
     }
-  }    
+  }
 
   // Tangent evaluation.
   void evalTangent(float t) {
@@ -207,7 +207,7 @@ class BSpline extends Spline {
     } else {
       bsplineTangent(t);
     }
-  }    
+  }
 
   // Calculates the point on the cubic spline corresponding to the parameter value t in [0, 1].
   void bsplinePoint(float t) {
@@ -284,7 +284,7 @@ class BSpline extends Spline {
       }
       tg[j] = s;
     }
-  }    
+  }
 
   // Control points.
   float[][] bsplineCPoints;

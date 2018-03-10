@@ -2,19 +2,19 @@ int startStrokeTime;
 
 void mousePressed() {
   int t0 = startStrokeTime = millis();
-  
+
   boolean connected = false;
   if (lastStroke != null && grouping && t0 - lastStroke.t1 < 1000 * MAX_GROUP_TIME) {
     t0 = lastStroke.t0;
-    connected = true;    
+    connected = true;
   }
-  
+
   currStroke = new Stroke(t0, dissapearing, fixed, currTexture, lastStroke);
-  
+
   if (connected) {
     lastStroke.next = currStroke;
   }
-  
+
   addPointToRibbon(mouseX, mouseY);
 }
 
@@ -32,7 +32,7 @@ void mouseReleased() {
     if (currStroke.visible) {
       layers[currLayer].add(currStroke);
     }
-    lastStroke = currStroke;    
+    lastStroke = currStroke;
     currStroke = null;
   }
 }
@@ -40,38 +40,38 @@ void mouseReleased() {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
-      LOOP_MULTIPLIER += 1; 
+      LOOP_MULTIPLIER += 1;
       println("Loop multiplier: " + LOOP_MULTIPLIER);
     } else if (keyCode == DOWN) {
       LOOP_MULTIPLIER -= 1;
       if (LOOP_MULTIPLIER < 1) LOOP_MULTIPLIER = 1;
-      println("Loop multiplier: " + LOOP_MULTIPLIER);      
+      println("Loop multiplier: " + LOOP_MULTIPLIER);
     } else if (keyCode == LEFT) {
       for (Stroke stroke: layers[currLayer]) {
         float ascale = stroke.getAlphaScale();
         ascale = constrain(ascale - 0.05, 0, 1);
-        stroke.setAlphaScale(ascale);   
+        stroke.setAlphaScale(ascale);
       }
     } else if (keyCode == RIGHT) {
       for (Stroke stroke: layers[currLayer]) {
         float ascale = stroke.getAlphaScale();
         ascale = constrain(ascale + 0.05, 0, 1);
-        stroke.setAlphaScale(ascale);   
-      }      
+        stroke.setAlphaScale(ascale);
+      }
     } else if (keyCode == CONTROL) {
       dissapearing = !dissapearing;
       println("Dissapearing lines: " + dissapearing);
     }
     return;
-  }  
-  
+  }
+
   if (key == ' ') {
     looping = !looping;
     println("Looping: " + looping);
   } else if (key == ENTER || key == RETURN) {
     grouping = !grouping;
     println("Grouping: " + grouping);
-  } else if (key == DELETE || key == BACKSPACE) {      
+  } else if (key == DELETE || key == BACKSPACE) {
     for (Stroke stroke: layers[currLayer]) {
       stroke.looping = false;
       stroke.fadeOutFact = DELETE_FACTOR;
@@ -85,7 +85,7 @@ void keyPressed() {
     fixed = !fixed;
     println("Fixed: " + fixed);
   } else if (key == 's') {
-   saveDrawing();        
+   saveDrawing();
   } else if (key == '1') {
     currLayer = 0;
     println("Selected stroke layer: " + 1);
@@ -104,6 +104,6 @@ void keyPressed() {
         currTexture = i;
         return;
       }
-    } 
-  }   
+    }
+  }
 }

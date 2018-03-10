@@ -9,7 +9,7 @@ float RIBBON_WIDTH = 0.8; // Average ribbon width
 float SMOOTH_COEFF = 0.7; // Smoothing coefficient used to ease the jumps in the tracking data.
 int RIBBON_DETAIL = 5;
 float MIN_POS_CHANGE = 2;
-float NORM_FACTOR = 5; // This factor allows to normalize ribbon width with respect to the speed of the 
+float NORM_FACTOR = 5; // This factor allows to normalize ribbon width with respect to the speed of the
                        // drawing, so that all ribbons have approximately same width.
 float MIN_CTRL_CHANGE = 5;
 float TEXCOORDU_INC = 0.1;
@@ -31,7 +31,7 @@ String[] TEXTURE_FILES = {
   "line00/01.png",
   "line00/02.png",
   "line01/01.png",
-  "line01/02.png",    
+  "line01/02.png",
   "line02/01.png",
   "line02/02.png",
   "line03/01.png",
@@ -44,11 +44,11 @@ char[] TEXTURE_KEYS = {
   'q',
   'Q',
   'w',
-  'W',    
+  'W',
   'e',
   'E',
   'r',
   'R',
   't',
-  'T'  
+  'T'
 };

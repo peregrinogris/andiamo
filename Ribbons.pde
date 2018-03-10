@@ -21,10 +21,10 @@ void initRibbons() {
     if (ui % ribbonDetail == 0) {
       nVertPerStretch += 4;
     }
-  }    
+  }
   lspline = new BSpline(true);
   rspline = new BSpline(true);
-  ribbonsWidth = random(0.7 * RIBBON_WIDTH, 1.3 * RIBBON_WIDTH);  
+  ribbonsWidth = random(0.7 * RIBBON_WIDTH, 1.3 * RIBBON_WIDTH);
 }
 
 void addPointToRibbon(float x, float y) {
@@ -37,7 +37,7 @@ void addPointToRibbon(float x, float y) {
     pY0 = pY;
     nControl = 0;
     return;
-  } 
+  }
 
   // Discarding steps that are too small.
   if (abs(pX - pX0) < MIN_POS_CHANGE && abs(pY - pY0) < MIN_POS_CHANGE) return;
@@ -47,13 +47,13 @@ void addPointToRibbon(float x, float y) {
   if (nControl == 4) {
     lspline.shiftBSplineCPoints();
     rspline.shiftBSplineCPoints();
-  } 
+  }
   else {
     // Initializing the first 4 control points
     PVector p1 = new PVector(pX, pY, 0);
     PVector p0 = new PVector(pX0, pY0, 0);
     PVector p10 = PVector.sub(p0, p1);
-    PVector p_1 = PVector.add(p0, p10); 
+    PVector p_1 = PVector.add(p0, p10);
     PVector p_2 = PVector.add(p_1, p10);
 
     lspline.setCPoint(0, p_2);
@@ -73,7 +73,7 @@ void addPointToRibbon(float x, float y) {
     nControl = 4;
   }
 
-//  twist[i] = TWO_PI * cos(TWO_PI * millis() / (1000.0 * twistPeriod[i]) + twistPhase[i]); 
+//  twist[i] = TWO_PI * cos(TWO_PI * millis() / (1000.0 * twistPeriod[i]) + twistPhase[i]);
   oldX = newX;
   oldY = newY;
   oldZ = newZ;
@@ -87,14 +87,14 @@ void addPointToRibbon(float x, float y) {
 
   float nX = +dY;
   float nY = -dX;
-  float nZ = 0;    
+  float nZ = 0;
 
   PVector dir = new PVector(dX, dY, dZ);
   PVector nor = new PVector(nX, nY, nZ);
   oldVel = newVel;
-  float l = dir.mag();  
+  float l = dir.mag();
   newVel = ribbonsWidth / map(l, 0, 100, 1, NORM_FACTOR + 0.1);
-  
+
 //  println(tablet.getPressure());
 //  newVel = 1 + tablet.getPressure() * NORM_FACTOR;
 
@@ -129,7 +129,7 @@ PVector Sid1Point0 = new PVector();
 PVector Sid1Point1 = new PVector();
 PVector Sid2Point0 = new PVector();
 PVector Sid2Point1 = new PVector();
-void drawRibbonStretch(BSpline spline1, BSpline spline2) {  
+void drawRibbonStretch(BSpline spline1, BSpline spline2) {
   int ti;
   float t;
   float x, y, z;
@@ -138,7 +138,7 @@ void drawRibbonStretch(BSpline spline1, BSpline spline2) {
   spline1.feval(0, Sid1Point1);
   spline2.feval(0, Sid2Point1);
 
-  for (ti = 1; ti <= 10; ti++) {    
+  for (ti = 1; ti <= 10; ti++) {
     if (ti % ribbonDetail == 0) {
       t = 0.1 * ti;
 
@@ -149,22 +149,22 @@ void drawRibbonStretch(BSpline spline1, BSpline spline2) {
       // The new geometry is generated.
       spline1.feval(t, Sid1Point1);
       spline2.feval(t, Sid2Point1);
-      
+
       StrokeQuad quad = new StrokeQuad(millis());
       quad.setVertex(0, Sid1Point0.x, Sid1Point0.y, Sid1Point0.z, 0, uTexCoord, 255, 255, 255, 150);
       quad.setVertex(1, Sid2Point0.x, Sid2Point0.y, Sid2Point0.z, 1, uTexCoord, 255, 255, 255, 150);
       updateTexCoordU();
       quad.setVertex(2, Sid2Point1.x, Sid2Point1.y, Sid2Point1.z, 1, uTexCoord, 255, 255, 255, 150);
-      quad.setVertex(3, Sid1Point1.x, Sid1Point1.y, Sid1Point1.z, 0, uTexCoord, 255, 255, 255, 150);      
+      quad.setVertex(3, Sid1Point1.x, Sid1Point1.y, Sid1Point1.z, 0, uTexCoord, 255, 255, 255, 150);
       updateTexCoordU();
       currStroke.addQuad(quad);
-    }    
+    }
   }
 }
 
-void updateTexCoordU() { 
+void updateTexCoordU() {
   uTexCoord += TEXCOORDU_INC;
   if (1 < uTexCoord) {
     uTexCoord = 0;
-  } 
+  }
 }
