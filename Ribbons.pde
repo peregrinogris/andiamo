@@ -14,6 +14,13 @@ float ribbonsWidth;
 float pX0, pY0;
 float pX, pY;
 
+void updateRibbonWidth(float width) {
+  ribbonsWidth = random(0.7 * width, 1.3 * width);
+}
+void updateRibbonWidth() {
+  updateRibbonWidth(RIBBON_WIDTH_FINE);
+}
+
 void initRibbons() {
   ribbonDetail = RIBBON_DETAIL;
   nVertPerStretch = 0;
@@ -24,7 +31,7 @@ void initRibbons() {
   }
   lspline = new BSpline(true);
   rspline = new BSpline(true);
-  ribbonsWidth = random(0.7 * RIBBON_WIDTH, 1.3 * RIBBON_WIDTH);
+  updateRibbonWidth();
 }
 
 void addPointToRibbon(float x, float y) {

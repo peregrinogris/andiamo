@@ -101,6 +101,15 @@ void keyPressed() {
   } else if (key == '4') {
     currLayer = 3;
     println("Selected stroke layer: " + 4);
+  } else if (key == '8') {
+    updateRibbonWidth(RIBBON_WIDTH_FINE);
+    println("Selected stroke width: " + RIBBON_WIDTH_FINE);
+  } else if (key == '9') {
+    updateRibbonWidth(RIBBON_WIDTH_MEDIUM);
+    println("Selected stroke width: " + RIBBON_WIDTH_MEDIUM);
+  } else if (key == '0') {
+    updateRibbonWidth(RIBBON_WIDTH_THICK);
+    println("Selected stroke width: " + RIBBON_WIDTH_THICK);
   } else {
     for (int i = 0; i < TEXTURE_KEYS.length; i++) {
       if (key ==  TEXTURE_KEYS[i]) {

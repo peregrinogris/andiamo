@@ -4,8 +4,9 @@ int RES_HEIGHT = 800;
 int DISPLAY_SCREEN = 2;
 int FRAMERATE = 60;
 //int DISPLAY_SCREEN = SPAN;
-
-float RIBBON_WIDTH = 0.8; // Average ribbon width
+float RIBBON_WIDTH_FINE = 0.8; // Average ribbon width
+float RIBBON_WIDTH_MEDIUM = 3;
+float RIBBON_WIDTH_THICK = 5;
 float SMOOTH_COEFF = 0.7; // Smoothing coefficient used to ease the jumps in the tracking data.
 int RIBBON_DETAIL = 5;
 float MIN_POS_CHANGE = 2;
