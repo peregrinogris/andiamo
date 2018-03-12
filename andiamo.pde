@@ -97,7 +97,7 @@ void cleanup(boolean force) {
   for (int i = 0; i < layers.length; i++) {
     for (int j = layers[i].size() - 1; j >= 0; j--) {
       Stroke stroke = (Stroke)layers[i].get(j);
-      if (force || (!stroke.isVisible() && !stroke.isLooping())) {
+      if (force || (stroke.fadeOutFact == DELETE_FACTOR) || (!stroke.isVisible() && !stroke.isLooping())) {
         layers[i].remove(j);
       }
     }

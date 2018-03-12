@@ -80,6 +80,7 @@ void keyPressed() {
       currStroke.looping = false;
       currStroke.fadeOutFact = DELETE_FACTOR;
     }
+    cleanup();
     println("Delete layer");
   } else if (key == TAB) {
     fixed = !fixed;
